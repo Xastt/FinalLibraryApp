@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        .for-list {
+           margin-top: 10px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>New book</title>
+</head>
+<body>
+
+    <article>
+
+            <header>
+                <nav class="clear">
+                    <ul>
+                        <li><a href = "/people">Person page</a></li>
+                        <li><a href = "/books">Books page</a></li>
+                        <li><a href = "/books/new">New book</a></li>
+                        <li><a href = "/books/search">Search the book</a></li>
+                    </ul>
+                </nav>
+                <h1>Library Web App</h1>
+            </header>
+
+        <ul>
+
+            <h1>Search the Book:</h1>
+
+
+        <form th:method="POST" th:action="@{/books/search}">
+            <label for="query">Enter search term: </label>
+            <input type="text" id="query" name="query"/>
+            <br/>
+            <input type="submit" value="Search!"/>
+        </form>
+
+        <div th:if="${books}">
+            <div th:if="${books.isEmpty()}">
+                <span style="color: red">No books found</span>
+            </div>
+
+            <div class = "for-list">
+
+            <div th:each="book : ${books}">
+                <!--<p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</p>-->
+                <a th:href="@{/books/{id}(id=${book.getId()})}"
+                   th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
+
+
+                <div th:if="${book.getOwner() != null}">
+                    <span>The book is now at: </span> <span th:text="${book.getOwner().getFullName()}">Person Name</span>
+                </div>
+
+                <div th:if="${book.getOwner() == null}">
+                    <span>The book is free</span>
+                </div>
+
+            </div>
+
+                <hr/>
+            </div>
+        </div>
+        </ul>
+    </article>
+
+
+</body>
+</html>

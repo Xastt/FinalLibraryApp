@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>New Person</title>
+</head>
+<body>
+
+    <article>
+
+            <header>
+                <nav class="clear">
+                    <ul>
+                        <li><a href="/people">Person page</a></li>
+                        <li><a href="/books">Books page</a></li>
+                    </ul>
+                </nav>
+                <h1>Library Web App</h1>
+            </header>
+
+        <ul>
+
+            <h1>New Person:</h1>
+
+            <form th:method="POST" th:action="@{/people}" th:object="${person}">
+                <label for="fullName">Enter your full name: </label>
+                <input type="text" th:field="*{fullName}" id="fullName"/>
+                <div style="color: red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</div>
+                <br/>
+                <label for="age">Enter the date of birth: </label>
+                <input type="text" th:field="*{data_born}" id="age"/>
+                <div style="color: red" th:if="${#fields.hasErrors('data_born')}" th:errors="*{data_born}">Age Error</div>
+                <br/>
+                <input type="submit" value="Create!"/>
+            </form>
+        </ul>
+    </article>
+
+</body>
+</html>

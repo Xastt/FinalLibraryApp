@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>New book</title>
+</head>
+<body>
+
+    <article>
+
+            <header>
+                <nav class="clear">
+                    <ul>
+                        <li><a href = "/people">Person page</a></li>
+                        <li><a href = "/books">Books page</a></li>
+                        <li><a href = "/people/new">New person</a></li>
+                    </ul>
+                </nav>
+                <h1>Library Web App</h1>
+            </header>
+
+        <ul>
+
+            <h1>Search the Person:</h1>
+
+
+            <form th:method="POST" th:action="@{/people/search}">
+                <label for="name">Enter search term: </label>
+                <input type="text" id="name" name="name"/>
+                <br/>
+                <input type="submit" value="Search!"/>
+            </form>
+
+            <div th:if="${people}">
+                <div th:if="${people.isEmpty()}">
+                    <span style="color: red">No person found</span>
+                </div>
+
+                    <div class = "for-list">
+                        <p th:each="person : ${people}">
+                            <a th:href="@{/people/{id}(id=${person.getId()})}"
+                               th:text="${person.getFullName() + ', ' + person.getData_born()}">user</a>
+                        </p>
+                    </div>
+            </div>
+        </ul>
+    </article>
+
+
+</body>
+</html>
